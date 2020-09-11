@@ -1,0 +1,58 @@
+<%= form_with(model: demonstrativo, local: true) do |form| %>
+  <% if demonstrativo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(demonstrativo.errors.count, "error") %> prohibited this demonstrativo from being saved:</h2>
+
+      <ul>
+        <% demonstrativo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :id_mesano %>
+    <%= form.number_field :id_mesano %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valordespesatotal %>
+    <% begin %>
+    <%= form.text_field :valordespesatotal, :value => Conddespesa.all.sum(:valordespesa) %>
+    <% rescue => e%>
+    <%= form.text_field :valordespesatotal, :value => 0 %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :receitaestimada %>
+    <% begin %>
+    <%= form.text_field :receitaestimada , :value => Rfinanceiro.all.sum(:valormensalidade)%>
+    <% rescue => e%>
+    <%= form.text_field :receitaestimada , :value => 0 %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inadimplencia %>
+    <% begin %>
+    <%= form.text_field :inadimplencia , :value => Rfinanceiro.all.sum(:debitototal)%>
+    <% rescue => e%>
+    <%= form.text_field :inadimplencia , :value => 0 %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :receitamenosinadimplencia %>
+    <% begin %>
+    <%= form.text_field :receitamenosinadimplencia , :value => Rfinanceiro.all.sum(:valormensalidade) - Rfinanceiro.all.sum(:debitototal) %>
+    <% rescue => e%>
+    <%= form.text_field :receitamenosinadimplencia , :value => 0 %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
