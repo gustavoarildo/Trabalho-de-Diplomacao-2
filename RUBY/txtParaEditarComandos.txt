@@ -1,0 +1,19 @@
+1)EXEMPLO CRIAÇAO CRUD
+rails generate scaffold appwebexemp nome:string id_seq:string endereco:text preco:decimal email:string
+
+rails generate scaffold rfinanceiro id_rf:integer nome:string telefone:integer valorMensalidade:decimal debitoTotal:decimal
+
+rails generate scaffold conddespesa id_cd:integer nomedespesa:string valordespesa:decimal
+
+rails generate scaffold demonstrativo id_mesano:integer valordespesatotal:decimal receitaestimada:decimal inadimplencia:decimal receitamenosinadimplencia:decimal
+
+2)EXEMPLO DESTRUIÇAO CRUD
+ 'rails destroy scaffold ModelName'.
+
+ rails destroy scaffold rfinanceiro
+
+ 3)EXEMPLO MIGRAÇÃO DE BANCO DE DADOS
+ rake db:migrate
+
+ 4)EXEMPLO IF ELSE
+ if != nill return Conddespesa.all.sum(:valordespesa) else return 0 end
